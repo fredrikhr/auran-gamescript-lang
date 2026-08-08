@@ -1,0 +1,12 @@
+{
+  "files.associations": {
+    "*.slnx": "xml"
+  },
+  "dotnet.defaultSolution": "Auran GameScript Language.slnx",
+  "xml.fileAssociations": [
+    {
+      "pattern": "**/*.slnx",
+      "systemId": "https://github.com/microsoft/vs-solutionpersistence/raw/refs/heads/main/src/Microsoft.VisualStudio.SolutionPersistence/Serializer/Xml/Slnx.xsd"
+    }
+  ],
+}
