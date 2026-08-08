@@ -19,6 +19,10 @@
     <!-- <PublishDir>$(MSBuildThisFileDirectory)publish\$(MSBuildProjectName)\</PublishDir> -->
   </PropertyGroup>
 
+  <PropertyGroup Label="ANTLR4">
+    <Antlr4ToolFolderPath>$(MSBuildThisFileDirectory)\.antlr4</Antlr4ToolFolderPath>
+  </PropertyGroup>
+
   <PropertyGroup>
     <LangVersion>14</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>

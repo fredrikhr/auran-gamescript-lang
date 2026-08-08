@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Antlr4.Runtime.Standard" />
+    <PackageReference Include="Antlr4BuildTasks">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>build</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Antlr4 Include="GS.g4">
+      <Listener>true</Listener>
+      <Visitor>true</Visitor>
+      <Package>$(RootNamespace)</Package>
+      <AntlrToolJarDownloadDir>$(Antlr4ToolFolderPath)</AntlrToolJarDownloadDir>
+      <ToolType>java</ToolType>
+      <JavaExec>PATH</JavaExec>
+    </Antlr4>
+  </ItemGroup>
+
+</Project>

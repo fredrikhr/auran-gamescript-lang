@@ -11,4 +11,7 @@
     <File Path=".github/dependabot.yml" />
     <File Path=".github/CODEOWNERS" />
   </Folder>
+  <Folder Name="/lib/">
+    <Project Path="lib/FredrikHr.AuranGameScript.LanguageSyntax/FredrikHr.AuranGameScript.LanguageSyntax.csproj" />
+  </Folder>
 </Solution>
