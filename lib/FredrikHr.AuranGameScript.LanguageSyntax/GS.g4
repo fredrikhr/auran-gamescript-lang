@@ -55,6 +55,9 @@ KEYWORD_WAIT:
 KEYWORD_ON: 'on'; // blocking command
 KEYWORD_DEFINE: 'define'; // const define declarator.
 KEYWORD_OBSOLETE: 'obsolete';
+KEYWORD_MANDATORY: 'mandatory';
+KEYWORD_SECURED: 'secured';
+KEYWORD_LEGACY_COMPATABILITY: 'legacy_compatibility';
 
 // Converted to ANTLR4 from TS12 TrainzUtil GameScript Documentation: Section 2.3 Identifiers
 fragment DIGIT: [0-9];
@@ -115,11 +118,15 @@ declaration_specifiers: declaration_specifier*;
 declaration_specifier:
 	KEYWORD_PUBLIC
 	| KEYWORD_NATIVE
-	| KEYWORD_OBSOLETE
+	| KEYWORD_OBSOLETE ('(' (CONSTANT_INT | CONSTANT_HEX) ')')?
+	| KEYWORD_DEFINE
 	| KEYWORD_FINAL
+	| KEYWORD_SECURED
+	| KEYWORD_MANDATORY
 	| KEYWORD_THREAD
 	| KEYWORD_STATIC
-	| KEYWORD_GAME;
+	| KEYWORD_GAME
+	| KEYWORD_LEGACY_COMPATABILITY;
 function_prototype_declaration:
 	type_specifier identifier '(' ')' ';'
 	| type_specifier identifier '(' KEYWORD_VOID ')' ';'
