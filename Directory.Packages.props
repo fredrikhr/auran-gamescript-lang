@@ -16,6 +16,6 @@
   </ItemGroup>
   <ItemGroup Label="ANTLR4">
     <PackageVersion Include="Antlr4.Runtime.Standard" Version="4.13.1" />
-    <PackageVersion Include="Antlr4BuildTasks" Version="12.13" />
+    <PackageVersion Include="Antlr4BuildTasks" Version="12.14.0" />
   </ItemGroup>
 </Project>
