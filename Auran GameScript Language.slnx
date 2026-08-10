@@ -14,4 +14,7 @@
   <Folder Name="/lib/">
     <Project Path="lib/FredrikHr.AuranGameScript.LanguageSyntax/FredrikHr.AuranGameScript.LanguageSyntax.csproj" />
   </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/FredrikHr.AuranGameScript.LanguageSyntax.XUnit/FredrikHr.AuranGameScript.LanguageSyntax.XUnit.csproj" />
+  </Folder>
 </Solution>

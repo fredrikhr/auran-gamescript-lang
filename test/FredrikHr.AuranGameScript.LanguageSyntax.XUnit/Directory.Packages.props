@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+  <Import Project="$(MSBuildThisFileDirectory)..\..\$(MSBuildThisFileName)$(MSBuildThisFileExtension)" />
+
+  <ItemGroup>
+    <PackageVersion Include="xunit.v3.mtp-v2" Version="3.2.2" />
+    <PackageReference Include="xunit.v3.mtp-v2" />
+  </ItemGroup>
+</Project>
