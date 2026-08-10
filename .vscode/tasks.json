@@ -4,6 +4,24 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Parse all files in folder with GS.g4",
+      "type": "shell",
+      "windows": {
+        "command": ".antlr4\\antlr4-interpreter-folder.cmd"
+      },
+      "args": [
+        "${fileDirname}"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Build Solution",
       "type": "dotnet",
       "task": "build",

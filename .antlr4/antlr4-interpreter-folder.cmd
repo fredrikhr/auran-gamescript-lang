@@ -13,7 +13,9 @@ SET ANTLR4_JAR_INTERPRETER_COMMAND=java -cp "%ANTLR4_JAR_FILE%" org.antlr.v4.gui
 MD "%~dp0..\out" 2> NUL
 ECHO.%~dpnx0 > "%~dp0..\out\%~n0.log"
 FOR %%S IN ("%~1\*.gs") DO (
+    ECHO.$ %%~nxS
     ECHO.$ %%~nxS: %ANTLR4_JAR_INTERPRETER_COMMAND% "%%~S" >> "%~dp0..\out\%~n0.log"
     %ANTLR4_JAR_INTERPRETER_COMMAND% "%%~S" 2>> "%~dp0..\out\%~n0.log"
 )
+ECHO.Done!
 ECHO.Done! >> "%~dp0..\out\%~n0.log"
