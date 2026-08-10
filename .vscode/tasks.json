@@ -4,6 +4,29 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Interpret current file with GS.g4",
+      "detail": "Launches a GUI showing the parse result of parsing ${fileBasename}",
+      "type": "shell",
+      "command": "antlr4-parse",
+      "windows": {
+        "command": ".antlr4\\antlr4-parse.cmd"
+      },
+      "args": [
+        "lib/FredrikHr.AuranGameScript.LanguageSyntax/GS.g4",
+        "program",
+        "-gui",
+        "${file}"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Parse all files in folder with GS.g4",
       "type": "shell",
       "windows": {
