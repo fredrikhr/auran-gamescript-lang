@@ -88,33 +88,22 @@ SYMBOL_EQ: '==';
 SYMBOL_NEQ: '!=';
 
 // Converted to ANTLR4 from TS12 TrainzUtil GameScript Documentation: Section 2.10 Grammar
-program:
-	include_list class_declaration_list
-	| class_declaration_list;
-include_list: include_declaration*;
+program: include_declaration* class_declaration* EOF;
 include_declaration: KEYWORD_INCLUDE include_file;
 include_file: CONSTANT_STRING;
-class_declaration_list: class_declaration*;
 class_declaration:
-	KEYWORD_CLASS identifier '{' '}' ';'
-	| KEYWORD_CLASS identifier KEYWORD_ISCLASS class_list '{' '}' ';'
-	| declaration_specifiers KEYWORD_CLASS identifier '{' '}' ';'
-	| declaration_specifiers KEYWORD_CLASS identifier KEYWORD_ISCLASS class_list '{' '}' ';'
-	| KEYWORD_CLASS identifier '{' declaration_list '}' ';'
-	| KEYWORD_CLASS identifier KEYWORD_ISCLASS class_list '{' declaration_list '}' ';'
-	| declaration_specifiers KEYWORD_CLASS identifier '{' declaration_list '}' ';'
-	| declaration_specifiers KEYWORD_CLASS identifier KEYWORD_ISCLASS class_list '{'
-		declaration_list '}' ';';
-class_list: identifier (',' identifier)*;
-declaration_list: declaration*;
+	declaration_specifier* KEYWORD_CLASS identifier class_derivision_specifier? class_definition ';'
+		;
+class_derivision_specifier:
+	KEYWORD_ISCLASS identifier (',' identifier)*;
+class_definition: '{' declaration* '}';
 declaration:
 	function_declaration
 	| function_prototype_declaration
 	| variable_declaration_list
-	| declaration_specifiers function_declaration
-	| declaration_specifiers function_prototype_declaration
-	| declaration_specifiers variable_declaration_list;
-declaration_specifiers: declaration_specifier*;
+	| declaration_specifier* function_declaration
+	| declaration_specifier* function_prototype_declaration
+	| declaration_specifier* variable_declaration_list;
 declaration_specifier:
 	KEYWORD_PUBLIC
 	| KEYWORD_NATIVE
@@ -128,15 +117,15 @@ declaration_specifier:
 	| KEYWORD_GAME
 	| KEYWORD_LEGACY_COMPATABILITY;
 function_prototype_declaration:
-	type_specifier identifier '(' ')' ';'
-	| type_specifier identifier '(' KEYWORD_VOID ')' ';'
-	| type_specifier identifier '(' parameter_list ')' ';';
+	type_specifier identifier function_parameter_declaration ';';
 function_declaration:
-	type_specifier identifier '(' ')' compound_statement
-	| type_specifier identifier '(' KEYWORD_VOID ')' compound_statement
-	| type_specifier identifier '(' parameter_list ')' compound_statement;
-variable_declaration_list: type_specifier declarator_list ';';
-declarator_list: declarator (',' declarator)*;
+	type_specifier identifier function_parameter_declaration compound_statement;
+function_parameter_declaration:
+	'(' ')'
+	| '(' KEYWORD_VOID ')'
+	| '(' parameter (',' parameter)* ')';
+variable_declaration_list:
+	type_specifier declarator (',' declarator)* ';';
 declarator: identifier | identifier '=' constant_expression;
 type_specifier:
 	primitive_type
@@ -150,10 +139,8 @@ primitive_type:
 	| KEYWORD_FLOAT
 	| KEYWORD_STRING
 	| KEYWORD_OBJECT;
-parameter_list: parameter (',' parameter)*;
 parameter: type_specifier identifier;
-compound_statement: '{' '}' | '{' statement_list '}';
-statement_list: statement*;
+compound_statement: '{' '}' | '{' statement* '}';
 statement:
 	variable_declaration_list
 	| labeled_statement
@@ -247,15 +234,15 @@ postfix_expression:
 	| postfix_expression '[' assignment_expression ',' assignment_expression ']'
 	| postfix_expression '[' assignment_expression ']'
 	| postfix_expression '(' ')'
-	| postfix_expression '(' argument_expression_list ')'
+	| postfix_expression '(' assignment_expression (
+		',' assignment_expression
+	)* ')'
 	| postfix_expression '.' identifier
 	| postfix_expression SYMBOL_INC
 	| postfix_expression SYMBOL_DEC
 	| postfix_expression '.' KEYWORD_SIZE '(' ')'
 	| postfix_expression '.' KEYWORD_ISCLASS '(' identifier ')'
 	| postfix_expression '.' KEYWORD_COPY '(' assignment_expression ')';
-argument_expression_list:
-	assignment_expression (',' assignment_expression)*;
 primary_expression:
 	identifier
 	| KEYWORD_ME
@@ -265,10 +252,14 @@ primary_expression:
 	| '(' expression ')';
 new_expression:
 	KEYWORD_NEW primitive_type '(' ')'
-	| KEYWORD_NEW primitive_type '(' argument_expression_list ')'
+	| KEYWORD_NEW primitive_type '(' assignment_expression (
+		',' assignment_expression
+	)* ')'
 	| KEYWORD_NEW primitive_type '[' expression ']'
 	| KEYWORD_NEW identifier '(' ')'
-	| KEYWORD_NEW identifier '(' argument_expression_list ')'
+	| KEYWORD_NEW identifier '(' assignment_expression (
+		',' assignment_expression
+	)* ')'
 	| KEYWORD_NEW identifier '[' expression ']';
 identifier: IDENTIFIER;
 constant:
@@ -283,5 +274,7 @@ constant:
 // Skipped terminal tokens
 NEWLINE: ('\r' '\n'? | '\n') -> skip;
 WHITESPACE: [ \t]+ -> skip;
-SKIP_BLOCKCOMMENT: '/*' .*? '*/' -> skip;
-SKIP_LINECOMMENT: '//' ~[\r\n]* -> skip;
+
+// Converted to ANTLR4 from TS12 TrainzUtil GameScript Documentation: Section 2.1 Comments
+BLOCKCOMMENT: '/*' .*? '*/' -> channel(HIDDEN);
+LINECOMMENT: '//' ~[\r\n]* -> channel(HIDDEN);
