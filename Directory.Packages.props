@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup Label="Global Package References">
     <GlobalPackageReference Include="Microsoft.SourceLink.GitHub">
-      <Version>10.0.300</Version>
+      <Version>10.0.400</Version>
       <PrivateAssets>all</PrivateAssets>
     </GlobalPackageReference>
     <GlobalPackageReference Include="PolySharp">
